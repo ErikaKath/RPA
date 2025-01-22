@@ -142,9 +142,9 @@ public void consolidacion(String NIT, String EMPRESA, String NUMREGISTRO, String
                           String CLASIFICACION3, String CLASIFICACION2, String CLASIFICACION1,
                           String USO, int numeroRegistros) {
 
-    System.out.println("El numero de registros es: " +numeroRegistros);
 
     int numeroRegistrosProveedores = ClsLeerArchivoExcel.contarFilasExcel(ClsConstantesGlobales.pathArchivoExcelFertilizantes, 1);
+    System.out.println("numeroRegistrosProveedores: " + numeroRegistrosProveedores);
     ArrayList<Map<String, String>> datosExcelProveedores = ClsLeerArchivoExcel.lecturaExcel(ClsConstantesGlobales.pathArchivoExcelFertilizantes, 1);
 
     try {
@@ -154,13 +154,13 @@ public void consolidacion(String NIT, String EMPRESA, String NUMREGISTRO, String
         }
 
         // Bucle para recorrer la matriz BD
-        for (int i = 0; i < numeroRegistros; i++) {
+        for (int i = 0; i <= numeroRegistros -1; i++) {
             System.out.println("Procesando registro de la BD en índice: " + i);
-
             // Bucle para recorrer ExcelProveedores
-            for (int j = 0; j < numeroRegistrosProveedores; j++) {
+            for (int j = 0; j <= numeroRegistrosProveedores -1; j++) {
                 System.out.println("Comparando con registro del Excel en índice: " + j);
-                nit = datosExcelProveedores.get(j).get("NIT EMPRESA TITULAR DEL REGISTRO");
+                nit = datosExcelProveedores.get(j).get("NIT");
+                System.out.println("El nit de proveedores es: " +nit);
                 if (nit != null && nit.equals(NIT)) {
                     System.out.println("El NIT es correcto");
                     ClsLeerArchivoExcel.modificarExcel("Correcto", j, 9, 1);
