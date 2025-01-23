@@ -145,7 +145,8 @@ public void consolidacion(String NIT, String EMPRESA, String NUMREGISTRO, String
 
     int numeroRegistrosProveedores = ClsLeerArchivoExcel.contarFilasExcel(ClsConstantesGlobales.pathArchivoExcelFertilizantes, 1);
     System.out.println("numeroRegistrosProveedores: " + numeroRegistrosProveedores);
-    ArrayList<Map<String, String>> datosExcelProveedores = ClsLeerArchivoExcel.lecturaExcel(ClsConstantesGlobales.pathArchivoExcelFertilizantes, 1);
+    ArrayList<Map<String, String>> datosExcelProveedores = ClsLeerArchivoExcel.lecturaExcel1(ClsConstantesGlobales.pathArchivoExcelFertilizantes, 1);
+    System.out.println("La lista contiene: " +datosExcelProveedores);
 
     try {
         if (datosExcelProveedores == null || datosExcelProveedores.isEmpty()) {
@@ -155,18 +156,18 @@ public void consolidacion(String NIT, String EMPRESA, String NUMREGISTRO, String
 
         // Bucle para recorrer la matriz BD
         for (int i = 0; i <= numeroRegistros -1; i++) {
-            System.out.println("Procesando registro de la BD en índice: " + i);
+            System.out.println("Procesando registro de la BD en Indice: " + i);
             // Bucle para recorrer ExcelProveedores
             for (int j = 0; j <= numeroRegistrosProveedores -1; j++) {
-                System.out.println("Comparando con registro del Excel en índice: " + j);
+                System.out.println("Comparando con registro del Excel en Indice: " + j);
                 nit = datosExcelProveedores.get(j).get("NIT");
                 System.out.println("El nit de proveedores es: " +nit);
                 if (nit != null && nit.equals(NIT)) {
                     System.out.println("El NIT es correcto");
-                    ClsLeerArchivoExcel.modificarExcel("Correcto", j, 9, 1);
+                    ClsLeerArchivoExcel.modificarExcel("Correcto", j +1, 9, 1);
                 } else {
                     System.out.println("El NIT no coincide para la fila: " + j);
-                    ClsLeerArchivoExcel.modificarExcel(NIT, j, 9, 1);
+                    ClsLeerArchivoExcel.modificarExcel(NIT, j +1, 9, 1);
                 }
 
             }

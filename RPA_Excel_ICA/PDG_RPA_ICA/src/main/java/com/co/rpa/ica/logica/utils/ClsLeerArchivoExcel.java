@@ -96,7 +96,7 @@ public class ClsLeerArchivoExcel {
     }
     public static void modificarExcel(String modificarValue, int row, int cell, int hoja){
         try{
-            byte[] archivo = FileUtils.readFileToByteArray(new File(ClsConstantesGlobales.pathArchivoExcel));
+            byte[] archivo = FileUtils.readFileToByteArray(new File(ClsConstantesGlobales.pathArchivoExcelFertilizantes));
             InputStream inputStream = new ByteArrayInputStream(archivo);
             //Guardamos el archivo excel
             XSSFWorkbook newWorkbook = new XSSFWorkbook(inputStream);
@@ -109,7 +109,7 @@ public class ClsLeerArchivoExcel {
             if (celda == null){
                 celda = fila.createCell(cell);
             } celda.setCellValue(modificarValue);
-            FileOutputStream fileOut = new FileOutputStream(ClsConstantesGlobales.pathArchivoExcel);
+            FileOutputStream fileOut = new FileOutputStream(ClsConstantesGlobales.pathArchivoExcelFertilizantes);
             newWorkbook.write(fileOut);
             fileOut.close();
         }catch (Exception e){
@@ -119,42 +119,42 @@ public class ClsLeerArchivoExcel {
         }
     }
 
-    //    public static ArrayList<Map<String, String>> lecturaExcel(String path, int numHoja) {
-//        ArrayList<Map<String, String>> excelToData = new ArrayList<>();
-//        Map<String, String> aux = new HashMap<>();
-//        try {
-//            File file = new File(path);
-//            InputStream inputStream = new FileInputStream(file);
-//            Workbook workbook = WorkbookFactory.create(inputStream);
-//            Sheet sheet = workbook.getSheetAt(numHoja);
-//            Iterator<Row> rowIterator = sheet.rowIterator();
-//            Row title = rowIterator.next(); // Asumimos que la primera fila tiene los títulos.
-//            DataFormatter dataFormatter = new DataFormatter(); // Para manejar formatos de celdas.
-//
-//            while (rowIterator.hasNext()) {
-//                Row row = rowIterator.next();
-//                Iterator<Cell> cellIterator = row.cellIterator();
-//                while (cellIterator.hasNext()) {
-//                    Cell cell = cellIterator.next();
-//                    String cellValue = dataFormatter.formatCellValue(cell); // Convierte todo a String.
-//                    aux.put(
-//                            String.valueOf(title.getCell(cell.getColumnIndex())),
-//                            cellValue
-//                    );
-//                }
-//                excelToData.add(aux);
-//                aux = new HashMap<>();
-//            }
-//        } catch (FileNotFoundException ex) {
-//            System.out.println("Excepción archivo no encontrado: " + ex);
-//            return null;
-//        } catch (NullPointerException ex) {
-//            System.out.println("Excepción archivo vacío: " + ex);
-//            return null;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return excelToData;
-//    }
+    public static ArrayList<Map<String, String>> lecturaExcel1(String path, int numHoja) {
+        ArrayList<Map<String, String>> excelToData = new ArrayList<>();
+        Map<String, String> aux = new HashMap<>();
+        try {
+            File file = new File(path);
+            InputStream inputStream = new FileInputStream(file);
+            Workbook workbook = WorkbookFactory.create(inputStream);
+            Sheet sheet = workbook.getSheetAt(numHoja);
+            Iterator<Row> rowIterator = sheet.rowIterator();
+            Row title = rowIterator.next(); // Asumimos que la primera fila tiene los títulos.
+            DataFormatter dataFormatter = new DataFormatter(); // Para manejar formatos de celdas.
+
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+                Iterator<Cell> cellIterator = row.cellIterator();
+                while (cellIterator.hasNext()) {
+                    Cell cell = cellIterator.next();
+                    String cellValue = dataFormatter.formatCellValue(cell); // Convierte todo a String.
+                    aux.put(
+                            String.valueOf(title.getCell(cell.getColumnIndex())),
+                            cellValue
+                    );
+                }
+                excelToData.add(aux);
+                aux = new HashMap<>();
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("Excepción archivo no encontrado: " + ex);
+            return null;
+        } catch (NullPointerException ex) {
+            System.out.println("Excepción archivo vacío: " + ex);
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return excelToData;
+    }
 
 }
